@@ -63,48 +63,53 @@ class EntityUtils {
         //To be used with Non-Player affiliated Entities
         enum class Bases {
             Wizard {
-                override fun health(): Int { TODO("Not yet implemented") }
-                override fun healthStep(): Int { TODO("Not yet implemented") }
-                override fun defense(): Int { TODO("Not yet implemented") }
-                override fun defenseStep(): Int { TODO("Not yet implemented") }
+                override fun health(): Int { return 20 }
+                override fun healthStep(): Int { return 0 }
+                override fun defense(): Int { return 15 }
+                override fun defenseStep(): Int { return 1 }
                 override fun speed(): Int { TODO("Not yet implemented") }
                 override fun speedStep(): Int { TODO("Not yet implemented") }
                 override fun magicka(): Int { TODO("Not yet implemented") }
                 override fun magickaStep(): Int { TODO("Not yet implemented") }
                 override fun damageModifier(): Int { TODO("Not yet implemented") }
+                override fun favoriteWeaponType(): String { TODO("Not yet implemented") }
             },
             Barbarian {
-                override fun health(): Int { TODO("Not yet implemented") }
-                override fun healthStep(): Int { TODO("Not yet implemented") }
-                override fun defense(): Int { TODO("Not yet implemented") }
-                override fun defenseStep(): Int { TODO("Not yet implemented") }
-                override fun speed(): Int { TODO("Not yet implemented") }
-                override fun speedStep(): Int { TODO("Not yet implemented") }
-                override fun magicka(): Int { TODO("Not yet implemented") }
-                override fun magickaStep(): Int { TODO("Not yet implemented") }
+                override fun health(): Int { return 20 }
+                override fun healthStep(): Int { return 2 }
+                override fun defense(): Int { return 17 }
+                override fun defenseStep(): Int { return 2 }
+                override fun speed(): Int { return 8 }
+                override fun speedStep(): Int { return 0 }
+                override fun magicka(): Int { return 0 }
+                override fun magickaStep(): Int { return 0 }
                 override fun damageModifier(): Int { TODO("Not yet implemented") }
+                override fun favoriteWeaponType(): String { return "melee" }
             },
             Archer {
-                override fun health(): Int { TODO("Not yet implemented") }
-                override fun healthStep(): Int { TODO("Not yet implemented") }
-                override fun defense(): Int { TODO("Not yet implemented") }
-                override fun defenseStep(): Int { TODO("Not yet implemented") }
+                override fun health(): Int { return 20 }
+                override fun healthStep(): Int { return 0 }
+                override fun defense(): Int { return 12 }
+                override fun defenseStep(): Int { return 0 }
                 override fun speed(): Int { TODO("Not yet implemented") }
                 override fun speedStep(): Int { TODO("Not yet implemented") }
                 override fun magicka(): Int { TODO("Not yet implemented") }
                 override fun magickaStep(): Int { TODO("Not yet implemented") }
                 override fun damageModifier(): Int { TODO("Not yet implemented") }
+                override fun favoriteWeaponType(): String { return "bow" }
             },
             Rogue {
-                override fun health(): Int { TODO("Not yet implemented") }
-                override fun healthStep(): Int { TODO("Not yet implemented") }
-                override fun defense(): Int { TODO("Not yet implemented") }
-                override fun defenseStep(): Int { TODO("Not yet implemented") }
-                override fun speed(): Int { TODO("Not yet implemented") }
-                override fun speedStep(): Int { TODO("Not yet implemented") }
-                override fun magicka(): Int { TODO("Not yet implemented") }
-                override fun magickaStep(): Int { TODO("Not yet implemented") }
+
+                override fun health(): Int { return 20 }
+                override fun healthStep(): Int { return 1 }
+                override fun defense(): Int { return 12 }
+                override fun defenseStep(): Int { return 1 }
+                override fun speed(): Int { return 15 }
+                override fun speedStep(): Int { return 2 }
+                override fun magicka(): Int { return 0 }
+                override fun magickaStep(): Int { return 0 }
                 override fun damageModifier(): Int { TODO("Not yet implemented") }
+                override fun favoriteWeaponType(): String { return "melee,bow" }
             };
             abstract fun health() : Int
             abstract fun healthStep() : Int
@@ -115,6 +120,7 @@ class EntityUtils {
             abstract fun magicka() : Int
             abstract fun magickaStep() : Int
             abstract fun damageModifier() : Int
+            abstract fun favoriteWeaponType() : String
         }
     }
 }
