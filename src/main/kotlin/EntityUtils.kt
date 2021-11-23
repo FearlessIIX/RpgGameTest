@@ -1,6 +1,8 @@
+import kotlin.random.Random
+
 class EntityUtils {
     companion object {
-        class Health(base : Bases, level : Level) {
+        class Health(base : Bases) {
             var health: Int? = null
             var maxHealth : Int? = null
             var dead: Boolean = false
@@ -9,12 +11,21 @@ class EntityUtils {
             // -- that can be stored in a common list, this will allow for the Entity to be under multiple
             // -- status effects without losing track of any of them
             init {
-                this.maxHealth = calcMaxHealth(base, level)
+                this.maxHealth = base.health()
                 this.health = this.maxHealth
             }
 
-            private fun calcMaxHealth(base : Bases, level : Level) : Int {
-                return 1
+            // Getters ---->
+            fun isDead() : Boolean {return this.dead}
+            fun getHealth() : Int {return this.health!!}
+            fun getMaxHealth() : Int {return this.maxHealth!!}
+            // ---->
+
+            fun calcMaxHealth(base : Bases) {
+                this.maxHealth = this.maxHealth?.plus(
+                    Random.nextInt(0, base.healthStep() + 1)
+                )
+                this.health = this.maxHealth
             }
 
             fun takeDamage(damage : Int) : Boolean {
@@ -36,9 +47,11 @@ class EntityUtils {
             private var xp : Int? = null
             private var xpMax : Int? = null
             init {
-
+                this.level = 1
+                this.xp = 0
+                this.xpMax = 25
             }
-            // Getters ----
+            // Getters ---->
             fun getLevel() : Int {
                 return this.level!!
             }
@@ -48,20 +61,50 @@ class EntityUtils {
             fun getMaxXp() : Int {
                 return this.xpMax!!
             }
-            // ----
-            fun gainExp(gainAmt: Int) {
+            // ---->
+            fun gainExp(gainAmt: Int) : Int {
                 this.xp = this.xp!! + gainAmt
-                if (this.xp!! > this.xpMax!!) {
+                var lvlCount = 0
+                while (this.xp!! >= this.xpMax!!) {
                     levelUp()
+                    lvlCount++
                 }
+                return lvlCount
             }
-
+            private fun determineMaxXp() : Int {
+                var factor = 3
+                var retMaxXp  = 25
+                for (i in 1..this.level!!) {
+                        if (i % 20 == 0) factor += 1
+                        retMaxXp += (retMaxXp / factor)
+                }
+                return retMaxXp
+            }
             private fun levelUp() {
-                this.xp = this.xpMax!! - this.xp!!
+                if (this.level == 100) {
+                    this.xp = this.xpMax;
+                }
+                else {
+                    this.xp = this.xp!! - this.xpMax!!
+                    this.xpMax = determineMaxXp()
+                    this.level = this.level?.plus(1)
+                }
             }
         }
         //To be used with Non-Player affiliated Entities
         enum class Bases {
+            Base {
+                override fun health(): Int { return 20 }
+                override fun healthStep(): Int { return 2 }
+                override fun defense(): Int { return 15 }
+                override fun defenseStep(): Int { return 1 }
+                override fun speed(): Int { return 12 }
+                override fun speedStep(): Int { return 1 }
+                override fun magicka(): Int { return 10 }
+                override fun magickaStep(): Int { return 1 }
+                override fun damageModifier(): Int { TODO("Not yet implemented") }
+                override fun favoriteWeaponType(): String { TODO("Not yet implemented") }
+            },
             Wizard {
                 override fun health(): Int { return 20 }
                 override fun healthStep(): Int { return 0 }
