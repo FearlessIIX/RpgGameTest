@@ -3,9 +3,9 @@ import kotlin.random.Random
 class EntityUtils {
     companion object {
         class Health(base : Bases) {
-            var health: Int? = null
-            var maxHealth : Int? = null
-            var dead: Boolean = false
+            private var health: Int? = null
+            private var maxHealth : Int? = null
+            private var dead: Boolean = false
             //TODO implement StatusEffect Object
             // - Short Desc, StatusEffect will store the means to create statuses with custom tick values
             // -- that can be stored in a common list, this will allow for the Entity to be under multiple
